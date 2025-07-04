@@ -35,7 +35,6 @@ class DifficultyPage extends StatelessWidget {
             child: ConstrainedBox(
               constraints: const BoxConstraints(
                 maxWidth: 500,
-                minWidth: double.infinity,
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),

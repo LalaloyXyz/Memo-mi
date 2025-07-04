@@ -85,63 +85,71 @@ class _FillInGamePageState extends State<FillInGamePage> {
         ),
         child: SafeArea(
           child: Center(
-            child: SingleChildScrollView(
-              child: Card(
-                elevation: 12,
-                shadowColor: Colors.deepOrange.withOpacity(0.15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Text(
-                          current.emoji,
-                          style: const TextStyle(fontSize: 64),
-                        ),
-                      ),
-                      Text(
-                        'คำแปล: ${current.meaning}',
-                        style: const TextStyle(fontSize: 22),
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        maskedWord,
-                        style: const TextStyle(fontSize: 30, letterSpacing: 4),
-                      ),
-                      const SizedBox(height: 20),
-                      TextField(
-                        controller: inputCtl,
-                        decoration: const InputDecoration(labelText: 'พิมพ์คำที่ถูกต้อง'),
-                        textCapitalization: TextCapitalization.characters,
-                      ),
-                      const SizedBox(height: 20),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 48,
-                        child: ElevatedButton(
-                          onPressed: inputCtl.text.trim().isEmpty ? null : _submit,
-                          style: ElevatedButton.styleFrom(
-                            elevation: 8,
-                            shadowColor: Colors.deepOrange.withOpacity(0.2),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            backgroundColor: Colors.deepOrange[600],
-                            foregroundColor: Colors.white,
-                            textStyle: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: 500,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                child: SingleChildScrollView(
+                  child: Card(
+                    elevation: 12,
+                    shadowColor: Colors.deepOrange.withOpacity(0.15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: Text(
+                              current.emoji,
+                              style: const TextStyle(fontSize: 64),
                             ),
                           ),
-                          child: const Text('ยืนยัน'),
-                        ),
+                          Text(
+                            'คำแปล: ${current.meaning}',
+                            style: const TextStyle(fontSize: 22),
+                          ),
+                          const SizedBox(height: 20),
+                          Text(
+                            maskedWord,
+                            style: const TextStyle(fontSize: 30, letterSpacing: 4),
+                          ),
+                          const SizedBox(height: 20),
+                          TextField(
+                            controller: inputCtl,
+                            decoration: const InputDecoration(labelText: 'พิมพ์คำที่ถูกต้อง'),
+                            textCapitalization: TextCapitalization.characters,
+                            onChanged: (_) => setState(() {}),
+                          ),
+                          const SizedBox(height: 20),
+                          SizedBox(
+                            width: double.infinity,
+                            height: 48,
+                            child: ElevatedButton(
+                              onPressed: inputCtl.text.trim().isEmpty ? null : _submit,
+                              style: ElevatedButton.styleFrom(
+                                elevation: 8,
+                                shadowColor: Colors.deepOrange.withOpacity(0.2),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                backgroundColor: Colors.deepOrange[600],
+                                foregroundColor: Colors.white,
+                                textStyle: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              child: const Text('ยืนยัน'),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
