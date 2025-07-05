@@ -35,51 +35,182 @@ class HomePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: const Color.fromARGB(255, 255, 219, 219),
-                      radius: 28,
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.deepOrange[700],
-                        size: 32,
-                      ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [
+                        Colors.white,
+                        Color.fromARGB(255, 255, 248, 245),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'สวัสดี $email',
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.deepOrange.withOpacity(0.1),
+                        blurRadius: 15,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Colors.orange, Colors.deepOrange],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                           ),
-                          Text(
-                            'ยินดีต้อนรับกลับมา',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.grey[700],
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.deepOrange.withOpacity(0.3),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
                             ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.person,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 2),
+                            Text(
+                              email,
+                              style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.deepOrange,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.waving_hand,
+                                  size: 16,
+                                  color: Colors.orange[400],
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  'ยินดีต้อนรับ',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey[600],
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.deepOrange.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.logout_rounded,
+                            color: Colors.deepOrange,
+                            size: 24,
                           ),
-                        ],
+                          tooltip: 'ออกจากระบบ',
+                          onPressed: onLogout,
+                        ),
                       ),
-                    ),
-                    IconButton(
-                      icon: const Icon(
-                        Icons.logout_rounded,
-                        color: Colors.deepOrange,
-                        size: 28,
-                      ),
-                      tooltip: 'ออกจากระบบ',
-                      onPressed: onLogout,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 30),
+                // Total Score Card
+                TweenAnimationBuilder<double>(
+                  tween: Tween<double>(begin: 0, end: 1),
+                  duration: const Duration(milliseconds: 600),
+                  builder:
+                      (context, value, child) => Opacity(
+                        opacity: value,
+                        child: Transform.translate(
+                          offset: Offset(0, (1 - value) * 30),
+                          child: child,
+                        ),
+                      ),
+                  child: Card(
+                    elevation: 12,
+                    shadowColor: Colors.deepOrange.withOpacity(0.15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Colors.orange, Colors.deepOrange],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(14),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: const Icon(
+                                Icons.star,
+                                color: Colors.white,
+                                size: 32,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'คะแนนรวมทั้งหมด',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white70,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    '${stats.values.fold(0, (sum, score) => sum + score)} คะแนน',
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                // Individual Scores Card
                 TweenAnimationBuilder<double>(
                   tween: Tween<double>(begin: 0, end: 1),
                   duration: const Duration(milliseconds: 800),
@@ -111,9 +242,9 @@ class HomePage extends StatelessWidget {
                                   ],
                                 ).createShader(bounds),
                             child: const Text(
-                              'คะแนนรวมในแต่ละโหมด:',
+                              'คะแนนแต่ละโหมด',
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 22,
                                 color: Colors.white,
                               ),
                             ),
@@ -127,14 +258,14 @@ class HomePage extends StatelessWidget {
                                   Icon(
                                     _modeIcon(e.key),
                                     color: Colors.deepOrange,
-                                    size: 22,
+                                    size: 35,
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
-                                    '${e.key}: ',
+                                    '${e.key} ',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 16,
+                                      fontSize: 20,
                                     ),
                                   ),
                                   Text(
@@ -151,7 +282,17 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                Center(
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.deepOrange.withOpacity(0.3),
+                        blurRadius: 12,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
                   child: SizedBox(
                     width: double.infinity,
                     height: 56,
@@ -161,35 +302,29 @@ class HomePage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder:
-                                (_) =>
-                                    ModeSelectPage(onStatUpdate: onStatUpdate),
+                                (_) => ModeSelectPage(onStatUpdate: onStatUpdate),
                           ),
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        elevation: 8,
-                        shadowColor: Colors.deepOrange.withOpacity(0.2),
+                        backgroundColor: Colors.transparent,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shadowColor: Colors.transparent,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        backgroundColor: Colors.transparent,
-                        foregroundColor: Colors.white,
                         textStyle: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
-                      ).copyWith(
-                        backgroundColor: MaterialStateProperty.all(
-                          Colors.transparent,
-                        ),
                       ),
-                      child: Ink(
+                      child: Container(
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.deepOrange[400]!,
-                              Colors.deepOrange[600]!,
-                            ],
+                          gradient: const LinearGradient(
+                            colors: [Colors.orange, Colors.deepOrange],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                           ),
                           borderRadius: BorderRadius.circular(16),
                         ),

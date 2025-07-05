@@ -56,10 +56,14 @@ class _ScrambleGamePageState extends State<ScrambleGamePage> {
 
   void _submit() {
     final attempt = selectedIndexes.map((i) => scrambled[i]).join();
-    if (attempt == current.word.toUpperCase()) {
-      score++;
-    }
-    round++;
+    setState(() {
+      if (attempt == current.word.toUpperCase()) {
+        score++;
+      } else {
+        score = (score - 1).clamp(0, double.infinity).toInt();
+      }
+      round++;
+    });
     _nextRound();
   }
 
@@ -72,7 +76,49 @@ class _ScrambleGamePageState extends State<ScrambleGamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('สลับคำ รอบ $round/10')),
+      appBar: AppBar(
+        title: Text('สลับคำ รอบ $round/10'),
+        actions: [
+          Container(
+            margin: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Colors.orange, Colors.deepOrange],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.deepOrange.withOpacity(0.3),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.star,
+                  color: Colors.white,
+                  size: 20,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  '$score',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -112,14 +158,15 @@ class _ScrambleGamePageState extends State<ScrambleGamePage> {
                       const SizedBox(height: 20),
                       Wrap(
                         spacing: 8,
-                        children: selectedIndexes
-                            .map(
-                              (i) => Chip(
-                                label: Text(scrambled[i]),
-                                onDeleted: () => _remove(i),
-                              ),
-                            )
-                            .toList(),
+                        children:
+                            selectedIndexes
+                                .map(
+                                  (i) => Chip(
+                                    label: Text(scrambled[i]),
+                                    onDeleted: () => _remove(i),
+                                  ),
+                                )
+                                .toList(),
                       ),
                       const SizedBox(height: 20),
                       Wrap(
@@ -127,7 +174,10 @@ class _ScrambleGamePageState extends State<ScrambleGamePage> {
                         children: List.generate(
                           scrambled.length,
                           (i) => ElevatedButton(
-                            onPressed: selectedIndexes.contains(i) ? null : () => _select(i),
+                            onPressed:
+                                selectedIndexes.contains(i)
+                                    ? null
+                                    : () => _select(i),
                             style: ElevatedButton.styleFrom(
                               elevation: 8,
                               shadowColor: Colors.deepOrange.withOpacity(0.2),

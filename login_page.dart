@@ -242,67 +242,77 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                             const SizedBox(height: 32),
 
                             // Login button with loading animation
-                            SizedBox(
-                              width: double.infinity,
-                              height: 56,
-                              child: ElevatedButton(
-                                onPressed: isLoading ? null : submit,
-                                style: ElevatedButton.styleFrom(
-                                  elevation: 8,
-                                  shadowColor: Colors.deepOrange.withOpacity(
-                                    0.4,
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.deepOrange.withOpacity(0.3),
+                                    blurRadius: 12,
+                                    offset: const Offset(0, 6),
                                   ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  backgroundColor: Colors.transparent,
-                                  foregroundColor: Colors.white,
-                                  textStyle: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ).copyWith(
-                                  backgroundColor: MaterialStateProperty.all(
-                                    Colors.transparent,
-                                  ),
-                                ),
-                                child: Ink(
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Colors.deepOrange[400]!,
-                                        Colors.deepOrange[600]!,
-                                      ],
+                                ],
+                              ),
+                              child: SizedBox(
+                                width: double.infinity,
+                                height: 56,
+                                child: ElevatedButton(
+                                  onPressed: isLoading ? null : submit,
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 0,
+                                    shadowColor: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16),
                                     ),
-                                    borderRadius: BorderRadius.circular(16),
+                                    backgroundColor: Colors.transparent,
+                                    foregroundColor: Colors.white,
+                                    textStyle: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ).copyWith(
+                                    backgroundColor: MaterialStateProperty.all(
+                                      Colors.transparent,
+                                    ),
                                   ),
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child:
-                                        isLoading
-                                            ? const SizedBox(
-                                              width: 24,
-                                              height: 24,
-                                              child: CircularProgressIndicator(
-                                                valueColor:
-                                                    AlwaysStoppedAnimation<
-                                                      Color
-                                                    >(Colors.white),
-                                                strokeWidth: 2,
-                                              ),
-                                            )
-                                            : const Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.login_rounded,
-                                                  size: 20,
+                                  child: Ink(
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Colors.deepOrange[400]!,
+                                          Colors.deepOrange[600]!,
+                                        ],
+                                      ),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child:
+                                          isLoading
+                                              ? const SizedBox(
+                                                width: 24,
+                                                height: 24,
+                                                child: CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                        Color
+                                                      >(Colors.white),
+                                                  strokeWidth: 2,
                                                 ),
-                                                SizedBox(width: 8),
-                                                Text('เข้าสู่ระบบ'),
-                                              ],
-                                            ),
+                                              )
+                                              : const Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.login_rounded,
+                                                    size: 20,
+                                                  ),
+                                                  SizedBox(width: 8),
+                                                  Text('เข้าสู่ระบบ'),
+                                                ],
+                                              ),
+                                    ),
                                   ),
                                 ),
                               ),
