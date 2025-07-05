@@ -60,7 +60,7 @@ class GameResultsPage extends StatelessWidget {
                         BoxShadow(
                           color: isPerfect 
                             ? Colors.green.withOpacity(0.4)
-                            : Colors.deepOrange.withOpacity(0.4),
+                            : Colors.orange.withOpacity(0.4),
                           blurRadius: 20,
                           offset: const Offset(0, 10),
                           spreadRadius: 2,
@@ -85,8 +85,8 @@ class GameResultsPage extends StatelessWidget {
                                   ]
                                 : [
                                     Colors.orange.shade400,
-                                    Colors.deepOrange.shade500,
-                                    Colors.deepOrange.shade700,
+                                    Colors.orange.shade500,
+                                    Colors.orange.shade700,
                                   ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,

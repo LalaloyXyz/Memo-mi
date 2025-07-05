@@ -59,13 +59,11 @@ class _ScrambleGamePageState extends State<ScrambleGamePage> {
   void _submit() {
     final attempt = selectedIndexes.map((i) => scrambled[i]).join();
     final isCorrect = attempt == current.word.toUpperCase();
-    
-    results.add(GameResult(
-      word: current,
-      isCorrect: isCorrect,
-      userAnswer: attempt,
-    ));
-    
+
+    results.add(
+      GameResult(word: current, isCorrect: isCorrect, userAnswer: attempt),
+    );
+
     setState(() {
       if (isCorrect) {
         score++;
@@ -91,7 +89,10 @@ class _ScrambleGamePageState extends State<ScrambleGamePage> {
         actions: [
           Container(
             margin: const EdgeInsets.all(8.0),
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 8.0,
+            ),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [Colors.orange, Colors.deepOrange],
@@ -110,11 +111,7 @@ class _ScrambleGamePageState extends State<ScrambleGamePage> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
-                  Icons.star,
-                  color: Colors.white,
-                  size: 20,
-                ),
+                const Icon(Icons.star, color: Colors.white, size: 20),
                 const SizedBox(width: 6),
                 Text(
                   '$score',

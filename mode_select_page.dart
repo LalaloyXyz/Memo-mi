@@ -9,7 +9,8 @@ class ModeSelectPage extends StatefulWidget {
   State<ModeSelectPage> createState() => _ModeSelectPageState();
 }
 
-class _ModeSelectPageState extends State<ModeSelectPage> with TickerProviderStateMixin {
+class _ModeSelectPageState extends State<ModeSelectPage>
+    with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
@@ -43,41 +44,49 @@ class _ModeSelectPageState extends State<ModeSelectPage> with TickerProviderStat
   Widget build(BuildContext context) {
     final modes = [
       {
-        'name': 'สลับคำ', 
+        'name': 'สลับคำ',
         'icon': Icons.shuffle_rounded,
         'color': Colors.purple,
-        'description': 'เรียงลำดับตัวอักษรให้ถูกต้อง'
+        'colorLight': Colors.purple.shade400,
+        'colorDark': Colors.purple.shade600,
+        'description': 'เรียงลำดับตัวอักษรให้ถูกต้อง',
       },
       {
-        'name': 'เติมคำ', 
+        'name': 'เติมคำ',
         'icon': Icons.edit_note_rounded,
         'color': Colors.blue,
-        'description': 'เติมตัวอักษรที่หายไป'
+        'colorLight': Colors.blue.shade400,
+        'colorDark': Colors.blue.shade600,
+        'description': 'เติมตัวอักษรที่หายไป',
       },
       {
-        'name': 'จับคู่', 
+        'name': 'จับคู่',
         'icon': Icons.link_rounded,
         'color': Colors.green,
-        'description': 'จับคู่คำกับความหมาย'
+        'colorLight': Colors.green.shade400,
+        'colorDark': Colors.green.shade600,
+        'description': 'จับคู่คำกับความหมาย',
       },
       {
-        'name': 'แข่งกับเวลา', 
+        'name': 'แข่งกับเวลา',
         'icon': Icons.timer_rounded,
         'color': Colors.red,
-        'description': 'ตอบให้เร็วที่สุด'
+        'colorLight': Colors.red.shade400,
+        'colorDark': Colors.red.shade600,
+        'description': 'ตอบให้เร็วที่สุด',
       },
     ];
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('เลือกโหมดเกม'),
         elevation: 0,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+        foregroundColor: const Color.fromARGB(255, 0, 0, 0),
         titleTextStyle: const TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: Colors.white,
+          color: Color.fromARGB(255, 0, 0, 0),
         ),
       ),
       body: Container(
@@ -98,88 +107,86 @@ class _ModeSelectPageState extends State<ModeSelectPage> with TickerProviderStat
               position: _slideAnimation,
               child: Center(
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxWidth: 500,
-                  ),
+                  constraints: const BoxConstraints(maxWidth: 500),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 32,
+                    ),
                     child: Column(
                       children: [
                         // Header section
                         TweenAnimationBuilder<double>(
                           tween: Tween<double>(begin: 0, end: 1),
                           duration: const Duration(milliseconds: 800),
-                          builder: (context, value, child) => Transform.scale(
-                            scale: 0.8 + (value * 0.2),
-                            child: Container(
-                              padding: const EdgeInsets.all(24),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    Colors.deepOrange.shade400,
-                                    Colors.deepOrange.shade600,
-                                  ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                ),
-                                borderRadius: BorderRadius.circular(24),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.deepOrange.withOpacity(0.4),
-                                    blurRadius: 20,
-                                    offset: const Offset(0, 10),
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.all(16),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.2),
-                                      borderRadius: BorderRadius.circular(50),
-                                      border: Border.all(
-                                        color: Colors.white.withOpacity(0.3),
-                                        width: 2,
-                                      ),
-                                    ),
-                                    child: const Icon(
-                                      Icons.games_rounded,
-                                      color: Colors.white,
-                                      size: 48,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  const Text(
-                                    'เลือกโหมดเกม',
-                                    style: TextStyle(
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      shadows: [
-                                        Shadow(
-                                          color: Colors.black26,
-                                          offset: Offset(0, 2),
-                                          blurRadius: 4,
-                                        ),
+                          builder:
+                              (context, value, child) => Transform.scale(
+                                scale: 0.8 + (value * 0.2),
+                                child: Container(
+                                  padding: const EdgeInsets.all(24),
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.orange.shade400,
+                                        Colors.orange.shade600,
                                       ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
                                     ),
+                                    borderRadius: BorderRadius.circular(24),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.orange.withOpacity(0.4),
+                                        blurRadius: 20,
+                                        offset: const Offset(0, 10),
+                                      ),
+                                    ],
                                   ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    'เลือกเกมที่คุณต้องการเล่น',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white.withOpacity(0.9),
-                                    ),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(16),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(
+                                            50,
+                                          ),
+                                          border: Border.all(
+                                            color: Colors.white.withOpacity(
+                                              0.3,
+                                            ),
+                                            width: 2,
+                                          ),
+                                        ),
+                                        child: const Icon(
+                                          Icons.games_rounded,
+                                          color: Colors.white,
+                                          size: 48,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      const Text(
+                                        'เลือกโหมดเกม',
+                                        style: TextStyle(
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                          shadows: [
+                                            Shadow(
+                                              color: Colors.black26,
+                                              offset: Offset(0, 2),
+                                              blurRadius: 4,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
                         ),
                         const SizedBox(height: 32),
-                        
+
                         // Game modes
                         Expanded(
                           child: ListView.builder(
@@ -188,24 +195,28 @@ class _ModeSelectPageState extends State<ModeSelectPage> with TickerProviderStat
                               final mode = modes[index];
                               return TweenAnimationBuilder<double>(
                                 tween: Tween<double>(begin: 0, end: 1),
-                                duration: Duration(milliseconds: 600 + (index * 200)),
-                                builder: (context, value, child) => Opacity(
-                                  opacity: value,
-                                  child: Transform.translate(
-                                    offset: Offset((1 - value) * 50, 0),
-                                    child: Transform.scale(
-                                      scale: 0.9 + (value * 0.1),
-                                      child: child,
-                                    ),
-                                  ),
+                                duration: Duration(
+                                  milliseconds: 600 + (index * 200),
                                 ),
+                                builder:
+                                    (context, value, child) => Opacity(
+                                      opacity: value,
+                                      child: Transform.translate(
+                                        offset: Offset((1 - value) * 50, 0),
+                                        child: Transform.scale(
+                                          scale: 0.9 + (value * 0.1),
+                                          child: child,
+                                        ),
+                                      ),
+                                    ),
                                 child: Container(
                                   margin: const EdgeInsets.only(bottom: 16),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: mode['color']!.withOpacity(0.2),
+                                        color: (mode['color'] as MaterialColor)
+                                            .withOpacity(0.2),
                                         blurRadius: 12,
                                         offset: const Offset(0, 6),
                                       ),
@@ -220,10 +231,13 @@ class _ModeSelectPageState extends State<ModeSelectPage> with TickerProviderStat
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (_) => DifficultyPage(
-                                                mode: mode['name'] as String,
-                                                onStatUpdate: widget.onStatUpdate,
-                                              ),
+                                              builder:
+                                                  (_) => DifficultyPage(
+                                                    mode:
+                                                        mode['name'] as String,
+                                                    onStatUpdate:
+                                                        widget.onStatUpdate,
+                                                  ),
                                             ),
                                           );
                                         },
@@ -231,8 +245,8 @@ class _ModeSelectPageState extends State<ModeSelectPage> with TickerProviderStat
                                           decoration: BoxDecoration(
                                             gradient: LinearGradient(
                                               colors: [
-                                                mode['color']!.shade400,
-                                                mode['color']!.shade600,
+                                                mode['colorLight'] as Color,
+                                                mode['colorDark'] as Color,
                                               ],
                                               begin: Alignment.topLeft,
                                               end: Alignment.bottomRight,
@@ -243,12 +257,19 @@ class _ModeSelectPageState extends State<ModeSelectPage> with TickerProviderStat
                                             child: Row(
                                               children: [
                                                 Container(
-                                                  padding: const EdgeInsets.all(12),
+                                                  padding: const EdgeInsets.all(
+                                                    12,
+                                                  ),
                                                   decoration: BoxDecoration(
-                                                    color: Colors.white.withOpacity(0.2),
-                                                    borderRadius: BorderRadius.circular(16),
+                                                    color: Colors.white
+                                                        .withOpacity(0.2),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          16,
+                                                        ),
                                                     border: Border.all(
-                                                      color: Colors.white.withOpacity(0.3),
+                                                      color: Colors.white
+                                                          .withOpacity(0.3),
                                                       width: 1,
                                                     ),
                                                   ),
@@ -261,35 +282,47 @@ class _ModeSelectPageState extends State<ModeSelectPage> with TickerProviderStat
                                                 const SizedBox(width: 16),
                                                 Expanded(
                                                   child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Text(
                                                         mode['name'] as String,
                                                         style: const TextStyle(
                                                           fontSize: 20,
-                                                          fontWeight: FontWeight.bold,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                           color: Colors.white,
                                                         ),
                                                       ),
                                                       const SizedBox(height: 4),
                                                       Text(
-                                                        mode['description'] as String,
+                                                        mode['description']
+                                                            as String,
                                                         style: TextStyle(
                                                           fontSize: 14,
-                                                          color: Colors.white.withOpacity(0.8),
+                                                          color: Colors.white
+                                                              .withOpacity(0.8),
                                                         ),
                                                       ),
                                                     ],
                                                   ),
                                                 ),
                                                 Container(
-                                                  padding: const EdgeInsets.all(8),
+                                                  padding: const EdgeInsets.all(
+                                                    8,
+                                                  ),
                                                   decoration: BoxDecoration(
-                                                    color: Colors.white.withOpacity(0.2),
-                                                    borderRadius: BorderRadius.circular(12),
+                                                    color: Colors.white
+                                                        .withOpacity(0.2),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          12,
+                                                        ),
                                                   ),
                                                   child: const Icon(
-                                                    Icons.arrow_forward_ios_rounded,
+                                                    Icons
+                                                        .arrow_forward_ios_rounded,
                                                     color: Colors.white,
                                                     size: 20,
                                                   ),
@@ -317,4 +350,4 @@ class _ModeSelectPageState extends State<ModeSelectPage> with TickerProviderStat
       ),
     );
   }
-} 
+}
