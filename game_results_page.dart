@@ -58,9 +58,10 @@ class GameResultsPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(32),
                       boxShadow: [
                         BoxShadow(
-                          color: isPerfect 
-                            ? Colors.green.withOpacity(0.4)
-                            : Colors.orange.withOpacity(0.4),
+                          color:
+                              isPerfect
+                                  ? Colors.green.withOpacity(0.4)
+                                  : Colors.orange.withOpacity(0.4),
                           blurRadius: 20,
                           offset: const Offset(0, 10),
                           spreadRadius: 2,
@@ -77,17 +78,18 @@ class GameResultsPage extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: isPerfect
-                                ? [
-                                    Colors.green.shade400,
-                                    Colors.green.shade600,
-                                    Colors.green.shade800,
-                                  ]
-                                : [
-                                    Colors.orange.shade400,
-                                    Colors.orange.shade500,
-                                    Colors.orange.shade700,
-                                  ],
+                            colors:
+                                isPerfect
+                                    ? [
+                                      Colors.green.shade400,
+                                      Colors.green.shade600,
+                                      Colors.green.shade800,
+                                    ]
+                                    : [
+                                      Colors.orange.shade400,
+                                      Colors.orange.shade500,
+                                      Colors.orange.shade700,
+                                    ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                             stops: const [0.0, 0.5, 1.0],
@@ -112,21 +114,29 @@ class GameResultsPage extends StatelessWidget {
                                   if (isPerfect) ...[
                                     TweenAnimationBuilder<double>(
                                       tween: Tween<double>(begin: 0, end: 1),
-                                      duration: const Duration(milliseconds: 1200),
-                                      builder: (context, value, child) => Transform.scale(
-                                        scale: value,
-                                        child: Transform.rotate(
-                                          angle: value * 0.1,
-                                          child: child,
-                                        ),
+                                      duration: const Duration(
+                                        milliseconds: 1200,
                                       ),
+                                      builder:
+                                          (context, value, child) =>
+                                              Transform.scale(
+                                                scale: value,
+                                                child: Transform.rotate(
+                                                  angle: value * 0.1,
+                                                  child: child,
+                                                ),
+                                              ),
                                       child: Container(
                                         padding: const EdgeInsets.all(16),
                                         decoration: BoxDecoration(
                                           color: Colors.white.withOpacity(0.2),
-                                          borderRadius: BorderRadius.circular(50),
+                                          borderRadius: BorderRadius.circular(
+                                            50,
+                                          ),
                                           border: Border.all(
-                                            color: Colors.white.withOpacity(0.3),
+                                            color: Colors.white.withOpacity(
+                                              0.3,
+                                            ),
                                             width: 2,
                                           ),
                                         ),
@@ -140,14 +150,20 @@ class GameResultsPage extends StatelessWidget {
                                     const SizedBox(height: 20),
                                     TweenAnimationBuilder<double>(
                                       tween: Tween<double>(begin: 0, end: 1),
-                                      duration: const Duration(milliseconds: 1000),
-                                      builder: (context, value, child) => Opacity(
-                                        opacity: value,
-                                        child: Transform.translate(
-                                          offset: Offset(0, (1 - value) * 20),
-                                          child: child,
-                                        ),
+                                      duration: const Duration(
+                                        milliseconds: 1000,
                                       ),
+                                      builder:
+                                          (context, value, child) => Opacity(
+                                            opacity: value,
+                                            child: Transform.translate(
+                                              offset: Offset(
+                                                0,
+                                                (1 - value) * 20,
+                                              ),
+                                              child: child,
+                                            ),
+                                          ),
                                       child: const Text(
                                         'ยอดเยี่ยม!',
                                         style: TextStyle(
@@ -169,13 +185,14 @@ class GameResultsPage extends StatelessWidget {
                                   TweenAnimationBuilder<double>(
                                     tween: Tween<double>(begin: 0, end: 1),
                                     duration: const Duration(milliseconds: 800),
-                                    builder: (context, value, child) => Opacity(
-                                      opacity: value,
-                                      child: Transform.translate(
-                                        offset: Offset((1 - value) * 30, 0),
-                                        child: child,
-                                      ),
-                                    ),
+                                    builder:
+                                        (context, value, child) => Opacity(
+                                          opacity: value,
+                                          child: Transform.translate(
+                                            offset: Offset((1 - value) * 30, 0),
+                                            child: child,
+                                          ),
+                                        ),
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
                                         horizontal: 16,
@@ -203,14 +220,17 @@ class GameResultsPage extends StatelessWidget {
                                   const SizedBox(height: 20),
                                   TweenAnimationBuilder<double>(
                                     tween: Tween<double>(begin: 0, end: 1),
-                                    duration: const Duration(milliseconds: 1000),
-                                    builder: (context, value, child) => Opacity(
-                                      opacity: value,
-                                      child: Transform.scale(
-                                        scale: 0.8 + (value * 0.2),
-                                        child: child,
-                                      ),
+                                    duration: const Duration(
+                                      milliseconds: 1000,
                                     ),
+                                    builder:
+                                        (context, value, child) => Opacity(
+                                          opacity: value,
+                                          child: Transform.scale(
+                                            scale: 0.8 + (value * 0.2),
+                                            child: child,
+                                          ),
+                                        ),
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
                                         horizontal: 24,
@@ -225,7 +245,9 @@ class GameResultsPage extends StatelessWidget {
                                         ),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.black.withOpacity(0.1),
+                                            color: Colors.black.withOpacity(
+                                              0.1,
+                                            ),
                                             blurRadius: 8,
                                             offset: const Offset(0, 4),
                                           ),
@@ -234,7 +256,8 @@ class GameResultsPage extends StatelessWidget {
                                       child: Column(
                                         children: [
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Icon(
                                                 Icons.star,
@@ -243,7 +266,7 @@ class GameResultsPage extends StatelessWidget {
                                               ),
                                               const SizedBox(width: 8),
                                               Text(
-                                                '$score/$totalQuestions',
+                                                '$score',
                                                 style: const TextStyle(
                                                   fontSize: 28,
                                                   fontWeight: FontWeight.bold,
@@ -264,7 +287,9 @@ class GameResultsPage extends StatelessWidget {
                                             'คะแนนรวม',
                                             style: TextStyle(
                                               fontSize: 14,
-                                              color: Colors.white.withOpacity(0.9),
+                                              color: Colors.white.withOpacity(
+                                                0.9,
+                                              ),
                                               fontWeight: FontWeight.w500,
                                             ),
                                           ),
@@ -275,14 +300,17 @@ class GameResultsPage extends StatelessWidget {
                                   const SizedBox(height: 16),
                                   TweenAnimationBuilder<double>(
                                     tween: Tween<double>(begin: 0, end: 1),
-                                    duration: const Duration(milliseconds: 1200),
-                                    builder: (context, value, child) => Opacity(
-                                      opacity: value,
-                                      child: Transform.translate(
-                                        offset: Offset(0, (1 - value) * 15),
-                                        child: child,
-                                      ),
+                                    duration: const Duration(
+                                      milliseconds: 1200,
                                     ),
+                                    builder:
+                                        (context, value, child) => Opacity(
+                                          opacity: value,
+                                          child: Transform.translate(
+                                            offset: Offset(0, (1 - value) * 15),
+                                            child: child,
+                                          ),
+                                        ),
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
                                         horizontal: 20,
@@ -324,7 +352,7 @@ class GameResultsPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                                // Results list
+                // Results list
                 Expanded(
                   child: TweenAnimationBuilder<double>(
                     tween: Tween<double>(begin: 0, end: 1),
@@ -357,10 +385,7 @@ class GameResultsPage extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: [
-                                Colors.white,
-                                Colors.grey.shade50,
-                              ],
+                              colors: [Colors.white, Colors.grey.shade50],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             ),
@@ -387,7 +412,9 @@ class GameResultsPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(20),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.deepOrange.withOpacity(0.3),
+                                        color: Colors.deepOrange.withOpacity(
+                                          0.3,
+                                        ),
                                         blurRadius: 8,
                                         offset: const Offset(0, 4),
                                       ),
@@ -399,7 +426,9 @@ class GameResultsPage extends StatelessWidget {
                                         padding: const EdgeInsets.all(8),
                                         decoration: BoxDecoration(
                                           color: Colors.white.withOpacity(0.2),
-                                          borderRadius: BorderRadius.circular(12),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
                                         ),
                                         child: const Icon(
                                           Icons.quiz,
@@ -427,61 +456,103 @@ class GameResultsPage extends StatelessWidget {
                                       final result = results[index];
                                       return TweenAnimationBuilder<double>(
                                         tween: Tween<double>(begin: 0, end: 1),
-                                        duration: Duration(milliseconds: 600 + (index * 100)),
-                                        builder: (context, value, child) => Opacity(
-                                          opacity: value,
-                                          child: Transform.translate(
-                                            offset: Offset((1 - value) * 30, 0),
-                                            child: child,
-                                          ),
+                                        duration: Duration(
+                                          milliseconds: 600 + (index * 100),
                                         ),
+                                        builder:
+                                            (context, value, child) => Opacity(
+                                              opacity: value,
+                                              child: Transform.translate(
+                                                offset: Offset(
+                                                  (1 - value) * 30,
+                                                  0,
+                                                ),
+                                                child: child,
+                                              ),
+                                            ),
                                         child: Container(
-                                          margin: const EdgeInsets.only(bottom: 12),
+                                          margin: const EdgeInsets.only(
+                                            bottom: 12,
+                                          ),
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(16),
+                                            borderRadius: BorderRadius.circular(
+                                              16,
+                                            ),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: result.isCorrect
-                                                    ? Colors.green.withOpacity(0.1)
-                                                    : Colors.red.withOpacity(0.1),
+                                                color:
+                                                    result.isCorrect
+                                                        ? Colors.green
+                                                            .withOpacity(0.1)
+                                                        : Colors.red
+                                                            .withOpacity(0.1),
                                                 blurRadius: 8,
                                                 offset: const Offset(0, 4),
                                               ),
                                             ],
                                           ),
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(16),
+                                            borderRadius: BorderRadius.circular(
+                                              16,
+                                            ),
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 gradient: LinearGradient(
-                                                  colors: result.isCorrect
-                                                      ? [
-                                                          Colors.green.shade50,
-                                                          Colors.green.shade100,
-                                                        ]
-                                                      : [
-                                                          Colors.red.shade50,
-                                                          Colors.red.shade100,
-                                                        ],
+                                                  colors:
+                                                      result.isCorrect
+                                                          ? [
+                                                            Colors
+                                                                .green
+                                                                .shade50,
+                                                            Colors
+                                                                .green
+                                                                .shade100,
+                                                          ]
+                                                          : [
+                                                            Colors.red.shade50,
+                                                            Colors.red.shade100,
+                                                          ],
                                                   begin: Alignment.topLeft,
                                                   end: Alignment.bottomRight,
                                                 ),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsets.all(16),
+                                                padding: const EdgeInsets.all(
+                                                  16,
+                                                ),
                                                 child: Row(
                                                   children: [
                                                     Container(
-                                                      padding: const EdgeInsets.all(12),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                            12,
+                                                          ),
                                                       decoration: BoxDecoration(
-                                                        color: result.isCorrect
-                                                            ? Colors.green.withOpacity(0.2)
-                                                            : Colors.red.withOpacity(0.2),
-                                                        borderRadius: BorderRadius.circular(12),
+                                                        color:
+                                                            result.isCorrect
+                                                                ? Colors.green
+                                                                    .withOpacity(
+                                                                      0.2,
+                                                                    )
+                                                                : Colors.red
+                                                                    .withOpacity(
+                                                                      0.2,
+                                                                    ),
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                              12,
+                                                            ),
                                                         border: Border.all(
-                                                          color: result.isCorrect
-                                                              ? Colors.green.withOpacity(0.3)
-                                                              : Colors.red.withOpacity(0.3),
+                                                          color:
+                                                              result.isCorrect
+                                                                  ? Colors.green
+                                                                      .withOpacity(
+                                                                        0.3,
+                                                                      )
+                                                                  : Colors.red
+                                                                      .withOpacity(
+                                                                        0.3,
+                                                                      ),
                                                           width: 2,
                                                         ),
                                                       ),
@@ -489,67 +560,125 @@ class GameResultsPage extends StatelessWidget {
                                                         result.isCorrect
                                                             ? Icons.check_circle
                                                             : Icons.cancel,
-                                                        color: result.isCorrect
-                                                            ? Colors.green.shade700
-                                                            : Colors.red.shade700,
+                                                        color:
+                                                            result.isCorrect
+                                                                ? Colors
+                                                                    .green
+                                                                    .shade700
+                                                                : Colors
+                                                                    .red
+                                                                    .shade700,
                                                         size: 24,
                                                       ),
                                                     ),
                                                     const SizedBox(width: 16),
                                                     Expanded(
                                                       child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
                                                           Text(
-                                                            result.word.emoji + ' ' + result.word.meaning,
-                                                            style: const TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight: FontWeight.w600,
-                                                            ),
+                                                            result.word.emoji +
+                                                                ' ' +
+                                                                result
+                                                                    .word
+                                                                    .meaning,
+                                                            style:
+                                                                const TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
                                                           ),
-                                                          const SizedBox(height: 8),
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
                                                           Container(
-                                                            padding: const EdgeInsets.symmetric(
-                                                              horizontal: 12,
-                                                              vertical: 6,
-                                                            ),
+                                                            padding:
+                                                                const EdgeInsets.symmetric(
+                                                                  horizontal:
+                                                                      12,
+                                                                  vertical: 6,
+                                                                ),
                                                             decoration: BoxDecoration(
-                                                              color: Colors.green.withOpacity(0.1),
-                                                              borderRadius: BorderRadius.circular(8),
+                                                              color: Colors
+                                                                  .green
+                                                                  .withOpacity(
+                                                                    0.1,
+                                                                  ),
+                                                              borderRadius:
+                                                                  BorderRadius.circular(
+                                                                    8,
+                                                                  ),
                                                               border: Border.all(
-                                                                color: Colors.green.withOpacity(0.3),
+                                                                color: Colors
+                                                                    .green
+                                                                    .withOpacity(
+                                                                      0.3,
+                                                                    ),
                                                                 width: 1,
                                                               ),
                                                             ),
                                                             child: Text(
                                                               'คำที่ถูกต้อง: ${result.word.word}',
                                                               style: TextStyle(
-                                                                color: Colors.green.shade700,
-                                                                fontWeight: FontWeight.w600,
+                                                                color:
+                                                                    Colors
+                                                                        .green
+                                                                        .shade700,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
                                                                 fontSize: 14,
                                                               ),
                                                             ),
                                                           ),
-                                                          if (!result.isCorrect && result.userAnswer.isNotEmpty) ...[
-                                                            const SizedBox(height: 6),
+                                                          if (!result
+                                                                  .isCorrect &&
+                                                              result
+                                                                  .userAnswer
+                                                                  .isNotEmpty) ...[
+                                                            const SizedBox(
+                                                              height: 6,
+                                                            ),
                                                             Container(
-                                                              padding: const EdgeInsets.symmetric(
-                                                                horizontal: 12,
-                                                                vertical: 6,
-                                                              ),
+                                                              padding:
+                                                                  const EdgeInsets.symmetric(
+                                                                    horizontal:
+                                                                        12,
+                                                                    vertical: 6,
+                                                                  ),
                                                               decoration: BoxDecoration(
-                                                                color: Colors.red.withOpacity(0.1),
-                                                                borderRadius: BorderRadius.circular(8),
+                                                                color: Colors
+                                                                    .red
+                                                                    .withOpacity(
+                                                                      0.1,
+                                                                    ),
+                                                                borderRadius:
+                                                                    BorderRadius.circular(
+                                                                      8,
+                                                                    ),
                                                                 border: Border.all(
-                                                                  color: Colors.red.withOpacity(0.3),
+                                                                  color: Colors
+                                                                      .red
+                                                                      .withOpacity(
+                                                                        0.3,
+                                                                      ),
                                                                   width: 1,
                                                                 ),
                                                               ),
                                                               child: Text(
                                                                 'คำตอบของคุณ: ${result.userAnswer}',
                                                                 style: TextStyle(
-                                                                  color: Colors.red.shade700,
-                                                                  fontWeight: FontWeight.w600,
+                                                                  color:
+                                                                      Colors
+                                                                          .red
+                                                                          .shade700,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
                                                                   fontSize: 14,
                                                                 ),
                                                               ),
@@ -669,33 +798,27 @@ class GameResult {
 class ScorePatternPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.white.withOpacity(0.1)
-      ..strokeWidth = 1
-      ..style = PaintingStyle.stroke;
+    final paint =
+        Paint()
+          ..color = Colors.white.withOpacity(0.1)
+          ..strokeWidth = 1
+          ..style = PaintingStyle.stroke;
 
     // Draw diagonal lines
     for (int i = 0; i < size.width + size.height; i += 20) {
-      canvas.drawLine(
-        Offset(i.toDouble(), 0),
-        Offset(0, i.toDouble()),
-        paint,
-      );
+      canvas.drawLine(Offset(i.toDouble(), 0), Offset(0, i.toDouble()), paint);
     }
 
     // Draw circles
-    final circlePaint = Paint()
-      ..color = Colors.white.withOpacity(0.05)
-      ..style = PaintingStyle.fill;
+    final circlePaint =
+        Paint()
+          ..color = Colors.white.withOpacity(0.05)
+          ..style = PaintingStyle.fill;
 
     for (int i = 0; i < 5; i++) {
       final x = (size.width / 4) * (i + 1);
       final y = (size.height / 4) * (i + 1);
-      canvas.drawCircle(
-        Offset(x, y),
-        30 + (i * 10),
-        circlePaint,
-      );
+      canvas.drawCircle(Offset(x, y), 30 + (i * 10), circlePaint);
     }
   }
 

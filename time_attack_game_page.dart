@@ -16,7 +16,8 @@ class TimeAttackGamePage extends StatefulWidget {
   State<TimeAttackGamePage> createState() => _TimeAttackGamePageState();
 }
 
-class _TimeAttackGamePageState extends State<TimeAttackGamePage> {
+class _TimeAttackGamePageState extends State<TimeAttackGamePage>
+    with TickerProviderStateMixin {
   late List<WordItem> questions;
   late WordItem current;
   late List<String> letters;
@@ -28,10 +29,51 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage> {
   Timer? timer;
   List<GameResult> results = [];
 
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
+  late Animation<double> _scaleAnimation;
+  late AnimationController _timerController;
+  late Animation<double> _timerAnimation;
+  late AnimationController _pulseController;
+  late Animation<double> _pulseAnimation;
+
   @override
   void initState() {
     super.initState();
     questions = [...widget.wordList]..shuffle();
+
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.elasticOut),
+    );
+
+    _timerController = AnimationController(
+      duration: const Duration(seconds: maxTime),
+      vsync: this,
+    );
+
+    _timerAnimation = Tween<double>(
+      begin: 1,
+      end: 0,
+    ).animate(CurvedAnimation(parent: _timerController, curve: Curves.linear));
+
+    _pulseController = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _pulseAnimation = Tween<double>(begin: 0.95, end: 1.05).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
+
     _startRound();
   }
 
@@ -44,6 +86,10 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage> {
     letters = current.word.toUpperCase().split('')..shuffle();
     selectedIndexes.clear();
     timeLeft = maxTime;
+    _animationController.reset();
+    _animationController.forward();
+    _timerController.reset();
+    _timerController.forward();
     _startTimer();
     setState(() {});
   }
@@ -54,11 +100,9 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage> {
       if (timeLeft <= 0) {
         t.cancel();
         // Time ran out, add result as incorrect
-        results.add(GameResult(
-          word: current,
-          isCorrect: false,
-          userAnswer: 'หมดเวลา',
-        ));
+        results.add(
+          GameResult(word: current, isCorrect: false, userAnswer: 'หมดเวลา'),
+        );
         _nextRound();
       } else {
         setState(() => timeLeft--);
@@ -83,13 +127,11 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage> {
   void _submit() {
     final attempt = selectedIndexes.map((i) => letters[i]).join();
     final isCorrect = attempt == current.word.toUpperCase();
-    
-    results.add(GameResult(
-      word: current,
-      isCorrect: isCorrect,
-      userAnswer: attempt,
-    ));
-    
+
+    results.add(
+      GameResult(word: current, isCorrect: isCorrect, userAnswer: attempt),
+    );
+
     setState(() {
       if (isCorrect) {
         // Time-based scoring: 10-6 seconds = +5, 5-0 seconds = +1
@@ -120,7 +162,16 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage> {
   @override
   void dispose() {
     timer?.cancel();
+    _animationController.dispose();
+    _timerController.dispose();
+    _pulseController.dispose();
     super.dispose();
+  }
+
+  Color _getTimerColor() {
+    if (timeLeft > 6) return Colors.green;
+    if (timeLeft > 3) return Colors.orange;
+    return Colors.red;
   }
 
   @override
@@ -128,21 +179,32 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('แข่งกับเวลา รอบ $round/10'),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+        titleTextStyle: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Color.fromARGB(255, 0, 0, 0),
+        ),
         actions: [
           Container(
-            margin: const EdgeInsets.all(8.0),
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            margin: const EdgeInsets.all(6.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12.0,
+              vertical: 6.0,
+            ),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [Colors.orange, Colors.deepOrange],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
                   color: Colors.deepOrange.withOpacity(0.3),
-                  blurRadius: 8,
+                  blurRadius: 6,
                   offset: const Offset(0, 2),
                 ),
               ],
@@ -150,16 +212,12 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
-                  Icons.star,
-                  color: Colors.white,
-                  size: 20,
-                ),
-                const SizedBox(width: 6),
+                const Icon(Icons.star, color: Colors.white, size: 16),
+                const SizedBox(width: 4),
                 Text(
                   '$score',
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -182,100 +240,478 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage> {
         ),
         child: SafeArea(
           child: Center(
-            child: SingleChildScrollView(
-              child: Card(
-                elevation: 12,
-                shadowColor: Colors.deepOrange.withOpacity(0.15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 400),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 16,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Text(
-                          current.emoji,
-                          style: const TextStyle(fontSize: 64),
-                        ),
-                      ),
-                      LinearProgressIndicator(
-                        value: timeLeft / maxTime,
-                        backgroundColor: Colors.grey[300],
-                        color: Colors.deepOrange,
-                        minHeight: 8,
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'เวลาที่เหลือ: $timeLeft วินาที',
-                        style: const TextStyle(fontSize: 16, color: Colors.red),
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        'คำแปล: ${current.meaning}',
-                        style: const TextStyle(fontSize: 22),
-                      ),
-                      const SizedBox(height: 20),
-                      Wrap(
-                        spacing: 8,
-                        children: selectedIndexes
-                            .map(
-                              (i) => Chip(
-                                label: Text(letters[i]),
-                                onDeleted: () => _removeLetter(i),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                      const SizedBox(height: 20),
-                      Wrap(
-                        spacing: 8,
-                        children: List.generate(
-                          letters.length,
-                          (i) => ElevatedButton(
-                            onPressed: selectedIndexes.contains(i) ? null : () => _onTap(i),
-                            style: ElevatedButton.styleFrom(
-                              elevation: 8,
-                              shadowColor: Colors.deepOrange.withOpacity(0.2),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              backgroundColor: Colors.deepOrange[400],
-                              foregroundColor: Colors.white,
-                              textStyle: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            child: Text(letters[i]),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 48,
-                        child: ElevatedButton(
-                          onPressed: selectedIndexes.isEmpty ? null : _submit,
-                          style: ElevatedButton.styleFrom(
-                            elevation: 8,
+                child: SingleChildScrollView(
+                  child: AnimatedBuilder(
+                    animation: _fadeAnimation,
+                    builder: (context, child) {
+                      return Transform.scale(
+                        scale: _scaleAnimation.value,
+                        child: Opacity(
+                          opacity: _fadeAnimation.value,
+                          child: Card(
+                            elevation: 12,
                             shadowColor: Colors.deepOrange.withOpacity(0.2),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            backgroundColor: Colors.deepOrange[600],
-                            foregroundColor: Colors.white,
-                            textStyle: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                gradient: LinearGradient(
+                                  colors: [Colors.white, Colors.grey.shade50],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    // Emoji without frame
+                                    AnimatedBuilder(
+                                      animation: _pulseAnimation,
+                                      builder: (context, child) {
+                                        return Transform.scale(
+                                          scale: _pulseAnimation.value,
+                                          child: Text(
+                                            current.emoji,
+                                            style: const TextStyle(fontSize: 48),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    const SizedBox(height: 16),
+
+                                    // Meaning with enhanced styling
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                        vertical: 10,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.red.shade50,
+                                            Colors.red.shade100,
+                                          ],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                          color: Colors.red.withOpacity(0.2),
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'คำแปล: ${current.meaning}',
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+
+                                    // Enhanced timer display
+                                    Container(
+                                      padding: const EdgeInsets.all(16),
+                                      decoration: BoxDecoration(
+                                        color: _getTimerColor().withOpacity(
+                                          0.1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(16),
+                                        border: Border.all(
+                                          color: _getTimerColor().withOpacity(
+                                            0.3,
+                                          ),
+                                          width: 2,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Icon(
+                                                Icons.timer,
+                                                color: _getTimerColor(),
+                                                size: 20,
+                                              ),
+                                              Text(
+                                                'เวลาที่เหลือ: $timeLeft วินาที',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: _getTimerColor(),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 8),
+                                          AnimatedBuilder(
+                                            animation: _timerAnimation,
+                                            builder: (context, child) {
+                                              return Container(
+                                                height: 8,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(4),
+                                                  color: Colors.grey.shade200,
+                                                ),
+                                                child: FractionallySizedBox(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  widthFactor:
+                                                      _timerAnimation.value,
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            4,
+                                                          ),
+                                                      gradient: LinearGradient(
+                                                        colors: [
+                                                          _getTimerColor(),
+                                                          _getTimerColor()
+                                                              .withOpacity(0.7),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+
+                                    // Selected letters with enhanced styling
+                                    if (selectedIndexes.isNotEmpty) ...[
+                                      Container(
+                                        padding: const EdgeInsets.all(12),
+                                        decoration: BoxDecoration(
+                                          color: Colors.green.shade50,
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                          border: Border.all(
+                                            color: Colors.green.withOpacity(
+                                              0.3,
+                                            ),
+                                            width: 2,
+                                          ),
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              'คำที่เลือก:',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.green.shade700,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Wrap(
+                                              spacing: 6,
+                                              children:
+                                                  selectedIndexes
+                                                      .map(
+                                                        (i) => Container(
+                                                          padding:
+                                                              const EdgeInsets.symmetric(
+                                                                horizontal: 8,
+                                                                vertical: 6,
+                                                              ),
+                                                          decoration: BoxDecoration(
+                                                            color:
+                                                                Colors
+                                                                    .green
+                                                                    .shade100,
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                  8,
+                                                                ),
+                                                            border: Border.all(
+                                                              color: Colors
+                                                                  .green
+                                                                  .withOpacity(
+                                                                    0.3,
+                                                                  ),
+                                                              width: 1,
+                                                            ),
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: [
+                                                              Text(
+                                                                letters[i],
+                                                                style: TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color:
+                                                                      Colors
+                                                                          .green
+                                                                          .shade800,
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 3,
+                                                              ),
+                                                              GestureDetector(
+                                                                onTap:
+                                                                    () =>
+                                                                        _removeLetter(
+                                                                          i,
+                                                                        ),
+                                                                child: Icon(
+                                                                  Icons.close,
+                                                                  size: 14,
+                                                                  color:
+                                                                      Colors
+                                                                          .green
+                                                                          .shade600,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      )
+                                                      .toList(),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                    ],
+
+                                    // Available letters with enhanced styling
+                                    Container(
+                                      padding: const EdgeInsets.all(16),
+                                      decoration: BoxDecoration(
+                                        color: Colors.blue.shade50,
+                                        borderRadius: BorderRadius.circular(16),
+                                        border: Border.all(
+                                          color: Colors.blue.withOpacity(0.2),
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            'ตัวอักษรที่ใช้ได้:',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.blue.shade700,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 12),
+                                          Wrap(
+                                            spacing: 8,
+                                            runSpacing: 8,
+                                            children: List.generate(
+                                              letters.length,
+                                              (i) => TweenAnimationBuilder<
+                                                double
+                                              >(
+                                                tween: Tween<double>(
+                                                  begin: 0,
+                                                  end: 1,
+                                                ),
+                                                duration: Duration(
+                                                  milliseconds: 300 + (i * 100),
+                                                ),
+                                                builder:
+                                                    (
+                                                      context,
+                                                      value,
+                                                      child,
+                                                    ) => Transform.scale(
+                                                      scale:
+                                                          selectedIndexes
+                                                                  .contains(i)
+                                                              ? 0.8
+                                                              : value,
+                                                      child: Opacity(
+                                                        opacity:
+                                                            selectedIndexes
+                                                                    .contains(i)
+                                                                ? 0.5
+                                                                : value,
+                                                        child: Material(
+                                                          color:
+                                                              Colors
+                                                                  .transparent,
+                                                          child: InkWell(
+                                                            onTap:
+                                                                selectedIndexes
+                                                                        .contains(
+                                                                          i,
+                                                                        )
+                                                                    ? null
+                                                                    : () =>
+                                                                        _onTap(
+                                                                          i,
+                                                                        ),
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                  12,
+                                                                ),
+                                                            child: Container(
+                                                              width: 48,
+                                                              height: 48,
+                                                              decoration: BoxDecoration(
+                                                                gradient: LinearGradient(
+                                                                  colors:
+                                                                      selectedIndexes.contains(
+                                                                            i,
+                                                                          )
+                                                                          ? [
+                                                                            Colors.grey.shade300,
+                                                                            Colors.grey.shade400,
+                                                                          ]
+                                                                          : [
+                                                                            Colors.blue.shade400,
+                                                                            Colors.blue.shade600,
+                                                                          ],
+                                                                  begin:
+                                                                      Alignment
+                                                                          .topLeft,
+                                                                  end:
+                                                                      Alignment
+                                                                          .bottomRight,
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius.circular(
+                                                                      12,
+                                                                    ),
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                    color:
+                                                                        selectedIndexes.contains(
+                                                                              i,
+                                                                            )
+                                                                            ? Colors.grey.withOpacity(
+                                                                              0.3,
+                                                                            )
+                                                                            : Colors.blue.withOpacity(
+                                                                              0.3,
+                                                                            ),
+                                                                    blurRadius:
+                                                                        6,
+                                                                    offset:
+                                                                        const Offset(
+                                                                          0,
+                                                                          3,
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  letters[i],
+                                                                  style: TextStyle(
+                                                                    fontSize:
+                                                                        20,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color:
+                                                                        selectedIndexes.contains(
+                                                                              i,
+                                                                            )
+                                                                            ? Colors.grey.shade600
+                                                                            : Colors.white,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+
+                                    // Enhanced submit button
+                                    Container(
+                                      width: double.infinity,
+                                      height: 48,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.deepOrange
+                                                .withOpacity(0.3),
+                                            blurRadius: 8,
+                                            offset: const Offset(0, 4),
+                                          ),
+                                        ],
+                                      ),
+                                      child: ElevatedButton(
+                                        onPressed:
+                                            selectedIndexes.isEmpty
+                                                ? null
+                                                : _submit,
+                                        style: ElevatedButton.styleFrom(
+                                          elevation: 0,
+                                          backgroundColor:
+                                              Colors.deepOrange.shade600,
+                                          foregroundColor: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
+                                          ),
+                                          textStyle: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            const Icon(
+                                              Icons.check_circle,
+                                              size: 20,
+                                            ),
+                                            const SizedBox(width: 6),
+                                            const Text('ยืนยัน'),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
-                          child: const Text('ยืนยัน'),
                         ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ),
               ),
