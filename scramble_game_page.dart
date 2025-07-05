@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'word_item.dart';
+import 'game_results_page.dart';
 
 class ScrambleGamePage extends StatefulWidget {
   final List<WordItem> wordList;
-  final Function(int) onFinish;
+  final Function(int, List<GameResult>) onFinish;
   const ScrambleGamePage({
     super.key,
     required this.wordList,
@@ -21,6 +22,7 @@ class _ScrambleGamePageState extends State<ScrambleGamePage> {
   List<int> selectedIndexes = [];
   int round = 1;
   int score = 0;
+  List<GameResult> results = [];
 
   @override
   void initState() {
@@ -31,7 +33,7 @@ class _ScrambleGamePageState extends State<ScrambleGamePage> {
 
   void _nextRound() {
     if (round > 10 || questions.isEmpty) {
-      widget.onFinish(score);
+      widget.onFinish(score, results);
       return;
     }
     current = questions.removeLast();
@@ -56,8 +58,16 @@ class _ScrambleGamePageState extends State<ScrambleGamePage> {
 
   void _submit() {
     final attempt = selectedIndexes.map((i) => scrambled[i]).join();
+    final isCorrect = attempt == current.word.toUpperCase();
+    
+    results.add(GameResult(
+      word: current,
+      isCorrect: isCorrect,
+      userAnswer: attempt,
+    ));
+    
     setState(() {
-      if (attempt == current.word.toUpperCase()) {
+      if (isCorrect) {
         score++;
       } else {
         score = (score - 1).clamp(0, double.infinity).toInt();

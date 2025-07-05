@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'word_item.dart';
+import 'game_results_page.dart';
 
 class FillInGamePage extends StatefulWidget {
   final List<WordItem> wordList;
-  final Function(int) onFinish;
+  final Function(int, List<GameResult>) onFinish;
   const FillInGamePage({
     super.key,
     required this.wordList,
@@ -21,6 +22,7 @@ class _FillInGamePageState extends State<FillInGamePage> {
   int round = 1;
   int score = 0;
   final inputCtl = TextEditingController();
+  List<GameResult> results = [];
 
   @override
   void initState() {
@@ -31,7 +33,7 @@ class _FillInGamePageState extends State<FillInGamePage> {
 
   void _nextRound() {
     if (round > 10 || questions.isEmpty) {
-      widget.onFinish(score);
+      widget.onFinish(score, results);
       return;
     }
     current = questions.removeLast();
@@ -55,7 +57,16 @@ class _FillInGamePageState extends State<FillInGamePage> {
   }
 
   void _submit() {
-    if (inputCtl.text.trim().toUpperCase() == current.word.toUpperCase()) {
+    final userAnswer = inputCtl.text.trim().toUpperCase();
+    final isCorrect = userAnswer == current.word.toUpperCase();
+    
+    results.add(GameResult(
+      word: current,
+      isCorrect: isCorrect,
+      userAnswer: userAnswer,
+    ));
+    
+    if (isCorrect) {
       score++;
     }
     round++;

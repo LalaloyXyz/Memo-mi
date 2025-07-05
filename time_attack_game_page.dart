@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'word_item.dart';
+import 'game_results_page.dart';
 
 class TimeAttackGamePage extends StatefulWidget {
   final List<WordItem> wordList;
-  final Function(int) onFinish;
+  final Function(int, List<GameResult>) onFinish;
   const TimeAttackGamePage({
     super.key,
     required this.wordList,
@@ -25,6 +26,7 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage> {
   static const int maxTime = 10;
   int timeLeft = maxTime;
   Timer? timer;
+  List<GameResult> results = [];
 
   @override
   void initState() {
@@ -51,6 +53,12 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage> {
     timer = Timer.periodic(const Duration(seconds: 1), (t) {
       if (timeLeft <= 0) {
         t.cancel();
+        // Time ran out, add result as incorrect
+        results.add(GameResult(
+          word: current,
+          isCorrect: false,
+          userAnswer: 'หมดเวลา',
+        ));
         _nextRound();
       } else {
         setState(() => timeLeft--);
@@ -74,8 +82,16 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage> {
 
   void _submit() {
     final attempt = selectedIndexes.map((i) => letters[i]).join();
+    final isCorrect = attempt == current.word.toUpperCase();
+    
+    results.add(GameResult(
+      word: current,
+      isCorrect: isCorrect,
+      userAnswer: attempt,
+    ));
+    
     setState(() {
-      if (attempt == current.word.toUpperCase()) {
+      if (isCorrect) {
         // Time-based scoring: 10-6 seconds = +5, 5-0 seconds = +1
         if (timeLeft >= 6) {
           score += 5;
@@ -98,7 +114,7 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage> {
 
   void _endGame() {
     timer?.cancel();
-    widget.onFinish(score);
+    widget.onFinish(score, results);
   }
 
   @override

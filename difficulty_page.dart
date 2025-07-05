@@ -4,6 +4,7 @@ import 'scramble_game_page.dart';
 import 'fill_in_game_page.dart';
 import 'match_game_page.dart';
 import 'time_attack_game_page.dart';
+import 'game_results_page.dart';
 
 class DifficultyPage extends StatelessWidget {
   final String mode;
@@ -87,9 +88,22 @@ class DifficultyPage extends StatelessWidget {
                                     words = hardWords;
 
                                   Widget screen;
-                                  void goBackWithScore(int score) {
+                                  void goBackWithScore(int score, List<GameResult> results) {
                                     onStatUpdate(mode, score);
-                                    Navigator.popUntil(context, (r) => r.isFirst);
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => GameResultsPage(
+                                          gameMode: mode,
+                                          score: score,
+                                          totalQuestions: 10,
+                                          results: results,
+                                          onGoHome: () {
+                                            Navigator.popUntil(context, (r) => r.isFirst);
+                                          },
+                                        ),
+                                      ),
+                                    );
                                   }
 
                                   switch (mode) {

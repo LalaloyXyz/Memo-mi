@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'word_item.dart';
+import 'game_results_page.dart';
 
 class MatchGamePage extends StatefulWidget {
   final List<WordItem> wordList;
-  final Function(int) onFinish;
+  final Function(int, List<GameResult>) onFinish;
   const MatchGamePage({
     super.key,
     required this.wordList,
@@ -22,6 +23,7 @@ class _MatchGamePageState extends State<MatchGamePage> {
   int? selectedIndex;
   int score = 0;
   int round = 1;
+  List<GameResult> results = [];
 
   @override
   void initState() {
@@ -32,7 +34,7 @@ class _MatchGamePageState extends State<MatchGamePage> {
 
   void _setupRound() {
     if (round > 10 || questions.length < 5) {
-      widget.onFinish(score);
+      widget.onFinish(score, results);
       return;
     }
 
@@ -72,6 +74,14 @@ class _MatchGamePageState extends State<MatchGamePage> {
       selectedIndex = null;
       setState(() {});
       if (matched.every((m) => m)) {
+        // Add results for this round
+        for (final pair in currentPairs) {
+          results.add(GameResult(
+            word: pair,
+            isCorrect: true,
+            userAnswer: 'จับคู่ถูกต้อง',
+          ));
+        }
         round++;
         Future.delayed(const Duration(milliseconds: 600), _setupRound);
       }
