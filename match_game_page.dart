@@ -26,13 +26,13 @@ class _MatchGamePageState extends State<MatchGamePage>
   int score = 0;
   int round = 1;
   List<GameResult> results = [];
-  
+
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
   late AnimationController _pulseController;
   late Animation<double> _pulseAnimation;
-  
+
   // For wrong match feedback
   List<int> wrongMatchIndexes = [];
   Timer? _wrongMatchTimer;
@@ -41,29 +41,29 @@ class _MatchGamePageState extends State<MatchGamePage>
   void initState() {
     super.initState();
     questions = [...widget.wordList]..shuffle();
-    
+
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 800),
       vsync: this,
     );
-    
+
     _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
-    
+
     _scaleAnimation = Tween<double>(begin: 0.8, end: 1).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.elasticOut),
     );
-    
+
     _pulseController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     )..repeat(reverse: true);
-    
+
     _pulseAnimation = Tween<double>(begin: 0.95, end: 1.05).animate(
       CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
     );
-    
+
     _setupRound();
   }
 
@@ -105,17 +105,19 @@ class _MatchGamePageState extends State<MatchGamePage>
         (w) =>
             (w.word == a && w.meaning == b) || (w.word == b && w.meaning == a),
       );
-      
+
       if (isMatch) {
         matched[selectedIndex!] = true;
         matched[i] = true;
         score++;
-        
+
         // Find the correct pair for this match
         final correctPair = currentPairs.firstWhere(
-          (w) => (w.word == a && w.meaning == b) || (w.word == b && w.meaning == a),
+          (w) =>
+              (w.word == a && w.meaning == b) ||
+              (w.word == b && w.meaning == a),
         );
-        
+
         // Add result for correct match
         results.add(
           GameResult(
@@ -127,7 +129,7 @@ class _MatchGamePageState extends State<MatchGamePage>
       } else {
         // Wrong match - subtract 1 point
         score = (score - 1).clamp(0, double.infinity).toInt();
-        
+
         // Show wrong match feedback
         wrongMatchIndexes = [selectedIndex!, i];
         _wrongMatchTimer?.cancel();
@@ -138,13 +140,13 @@ class _MatchGamePageState extends State<MatchGamePage>
             });
           }
         });
-        
+
         // Find which word was attempted and add result for incorrect match
         final attemptedWord = currentPairs.firstWhere(
           (w) => w.word == a || w.word == b,
           orElse: () => currentPairs.first,
         );
-        
+
         results.add(
           GameResult(
             word: attemptedWord,
@@ -153,10 +155,10 @@ class _MatchGamePageState extends State<MatchGamePage>
           ),
         );
       }
-      
+
       selectedIndex = null;
       setState(() {});
-      
+
       if (matched.every((m) => m)) {
         round++;
         Future.delayed(const Duration(milliseconds: 600), _setupRound);
@@ -172,7 +174,7 @@ class _MatchGamePageState extends State<MatchGamePage>
     super.dispose();
   }
 
-  Color _getCardColor(int index) {
+  Color getCardColor(int index) {
     if (matched[index]) return Colors.green;
     if (wrongMatchIndexes.contains(index)) return Colors.red;
     if (selectedIndex == index) return Colors.orange;
@@ -201,14 +203,14 @@ class _MatchGamePageState extends State<MatchGamePage>
             ),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
-                colors: [Colors.orange, Colors.deepOrange],
+                colors: [Color(0xFFBFA2DB), Color(0xFFE0BBFF)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.deepOrange.withOpacity(0.3),
+                  color: Color(0xFFBFA2DB).withOpacity(0.3),
                   blurRadius: 6,
                   offset: const Offset(0, 2),
                 ),
@@ -237,10 +239,7 @@ class _MatchGamePageState extends State<MatchGamePage>
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color.fromARGB(255, 255, 195, 180),
-              Color.fromARGB(255, 249, 192, 122),
-            ],
+            colors: [Color(0xFFE0BBFF), Color(0xFFBFA2DB)],
           ),
         ),
         child: SafeArea(
@@ -261,7 +260,7 @@ class _MatchGamePageState extends State<MatchGamePage>
                         opacity: _fadeAnimation.value,
                         child: Card(
                           elevation: 12,
-                          shadowColor: Colors.deepOrange.withOpacity(0.2),
+                          shadowColor: Color(0xFFBFA2DB).withOpacity(0.2),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
@@ -269,7 +268,7 @@ class _MatchGamePageState extends State<MatchGamePage>
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               gradient: LinearGradient(
-                                colors: [Colors.white, Colors.grey.shade50],
+                                colors: [Colors.white, Color(0xFFF3E8FF)],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ),
@@ -353,7 +352,8 @@ class _MatchGamePageState extends State<MatchGamePage>
                                       itemBuilder: (_, i) {
                                         final isSelected = selectedIndex == i;
                                         final isDone = matched[i];
-                                        final isWrongMatch = wrongMatchIndexes.contains(i);
+                                        final isWrongMatch = wrongMatchIndexes
+                                            .contains(i);
 
                                         return TweenAnimationBuilder<double>(
                                           tween: Tween<double>(
@@ -431,11 +431,25 @@ class _MatchGamePageState extends State<MatchGamePage>
                                                         boxShadow: [
                                                           BoxShadow(
                                                             color:
-                                                                _getCardColor(
-                                                                  i,
-                                                                ).withOpacity(
-                                                                  0.3,
-                                                                ),
+                                                                matched[i]
+                                                                    ? Colors
+                                                                        .green
+                                                                        .withOpacity(
+                                                                          0.3,
+                                                                        )
+                                                                    : wrongMatchIndexes
+                                                                        .contains(
+                                                                          i,
+                                                                        )
+                                                                    ? Colors.red
+                                                                        .withOpacity(
+                                                                          0.3,
+                                                                        )
+                                                                    : Color(
+                                                                      0xFFBFA2DB,
+                                                                    ).withOpacity(
+                                                                      0.3,
+                                                                    ),
                                                             blurRadius: 6,
                                                             offset:
                                                                 const Offset(
@@ -459,7 +473,8 @@ class _MatchGamePageState extends State<MatchGamePage>
                                                                         0.3,
                                                                       ),
                                                           width:
-                                                              (isWrongMatch || isSelected)
+                                                              (isWrongMatch ||
+                                                                      isSelected)
                                                                   ? 2
                                                                   : 1,
                                                         ),
@@ -486,24 +501,29 @@ class _MatchGamePageState extends State<MatchGamePage>
                                                                 ),
                                                               if (isWrongMatch)
                                                                 Icon(
-                                                                  Icons
-                                                                      .close,
+                                                                  Icons.close,
                                                                   color:
                                                                       Colors
                                                                           .white,
                                                                   size: 16,
                                                                 ),
-                                                              if (isDone || isWrongMatch)
+                                                              if (isDone ||
+                                                                  isWrongMatch)
                                                                 const SizedBox(
                                                                   height: 2,
                                                                 ),
                                                               Text(
-                                                                isWrongMatch ? 'ไม่ถูกต้อง' : items[i],
+                                                                isWrongMatch
+                                                                    ? 'ไม่ถูกต้อง'
+                                                                    : items[i],
                                                                 textAlign:
                                                                     TextAlign
                                                                         .center,
                                                                 style: TextStyle(
-                                                                  fontSize: isWrongMatch ? 10 : 12,
+                                                                  fontSize:
+                                                                      isWrongMatch
+                                                                          ? 10
+                                                                          : 12,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,

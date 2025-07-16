@@ -46,33 +46,33 @@ class _ModeSelectPageState extends State<ModeSelectPage>
       {
         'name': 'สลับคำ',
         'icon': Icons.shuffle_rounded,
-        'color': Colors.purple,
-        'colorLight': Colors.purple.shade400,
-        'colorDark': Colors.purple.shade600,
+        'color': Colors.purple.shade200,
+        'colorLight': Colors.purple.shade100,
+        'colorDark': Colors.purple.shade400,
         'description': 'เรียงลำดับตัวอักษรให้ถูกต้อง',
       },
       {
         'name': 'เติมคำ',
         'icon': Icons.edit_note_rounded,
-        'color': Colors.blue,
-        'colorLight': Colors.blue.shade400,
-        'colorDark': Colors.blue.shade600,
+        'color': Colors.purple.shade200,
+        'colorLight': Colors.purple.shade100,
+        'colorDark': Colors.purple.shade400,
         'description': 'เติมตัวอักษรที่หายไป',
       },
       {
         'name': 'จับคู่',
         'icon': Icons.link_rounded,
-        'color': Colors.green,
-        'colorLight': Colors.green.shade400,
-        'colorDark': Colors.green.shade600,
+        'color': Colors.purple.shade200,
+        'colorLight': Colors.purple.shade100,
+        'colorDark': Colors.purple.shade400,
         'description': 'จับคู่คำกับความหมาย',
       },
       {
         'name': 'แข่งกับเวลา',
         'icon': Icons.timer_rounded,
-        'color': Colors.red,
-        'colorLight': Colors.red.shade400,
-        'colorDark': Colors.red.shade600,
+        'color': Colors.purple.shade200,
+        'colorLight': Colors.purple.shade100,
+        'colorDark': Colors.purple.shade400,
         'description': 'ตอบให้เร็วที่สุด',
       },
     ];
@@ -95,8 +95,8 @@ class _ModeSelectPageState extends State<ModeSelectPage>
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color.fromARGB(255, 255, 195, 180),
-              Color.fromARGB(255, 249, 192, 122),
+              Color(0xFFE0BBFF),
+              Color(0xFFBFA2DB),
             ],
           ),
         ),
@@ -127,8 +127,8 @@ class _ModeSelectPageState extends State<ModeSelectPage>
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(
                                       colors: [
-                                        Colors.orange.shade400,
-                                        Colors.orange.shade600,
+                                        Color(0xFFBFA2DB),
+                                        Color(0xFFE0BBFF),
                                       ],
                                       begin: Alignment.topLeft,
                                       end: Alignment.bottomRight,
@@ -136,7 +136,7 @@ class _ModeSelectPageState extends State<ModeSelectPage>
                                     borderRadius: BorderRadius.circular(24),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.orange.withOpacity(0.4),
+                                        color: Color(0xFFBFA2DB).withOpacity(0.4),
                                         blurRadius: 20,
                                         offset: const Offset(0, 10),
                                       ),
@@ -215,7 +215,7 @@ class _ModeSelectPageState extends State<ModeSelectPage>
                                     borderRadius: BorderRadius.circular(20),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: (mode['color'] as MaterialColor)
+                                        color: (mode['color'] as Color)
                                             .withOpacity(0.2),
                                         blurRadius: 12,
                                         offset: const Offset(0, 6),

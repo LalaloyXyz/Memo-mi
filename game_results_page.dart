@@ -28,8 +28,8 @@ class GameResultsPage extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color.fromARGB(255, 255, 195, 180),
-              Color.fromARGB(255, 249, 192, 122),
+              Color(0xFFE0BBFF),
+              Color(0xFFBFA2DB),
             ],
           ),
         ),
@@ -58,10 +58,7 @@ class GameResultsPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(32),
                       boxShadow: [
                         BoxShadow(
-                          color:
-                              isPerfect
-                                  ? Colors.green.withOpacity(0.4)
-                                  : Colors.orange.withOpacity(0.4),
+                          color: Color(0xFFBFA2DB).withOpacity(0.4),
                           blurRadius: 20,
                           offset: const Offset(0, 10),
                           spreadRadius: 2,
@@ -78,18 +75,11 @@ class GameResultsPage extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors:
-                                isPerfect
-                                    ? [
-                                      Colors.green.shade400,
-                                      Colors.green.shade600,
-                                      Colors.green.shade800,
-                                    ]
-                                    : [
-                                      Colors.orange.shade400,
-                                      Colors.orange.shade500,
-                                      Colors.orange.shade700,
-                                    ],
+                            colors: [
+                              Color(0xFFBFA2DB),
+                              Color(0xFFE0BBFF),
+                              Color(0xFFD1C4E9),
+                            ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                             stops: const [0.0, 0.5, 1.0],
@@ -373,7 +363,7 @@ class GameResultsPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(28),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.deepOrange.withOpacity(0.2),
+                            color: Color(0xFFBFA2DB).withOpacity(0.2),
                             blurRadius: 15,
                             offset: const Offset(0, 8),
                             spreadRadius: 1,
@@ -403,8 +393,8 @@ class GameResultsPage extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(
                                       colors: [
-                                        Colors.deepOrange.shade400,
-                                        Colors.deepOrange.shade600,
+                                        Color(0xFFBFA2DB),
+                                        Color(0xFFE0BBFF),
                                       ],
                                       begin: Alignment.topLeft,
                                       end: Alignment.bottomRight,
@@ -412,9 +402,7 @@ class GameResultsPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(20),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.deepOrange.withOpacity(
-                                          0.3,
-                                        ),
+                                        color: Color(0xFFBFA2DB).withOpacity(0.3),
                                         blurRadius: 8,
                                         offset: const Offset(0, 4),
                                       ),
@@ -725,7 +713,7 @@ class GameResultsPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.deepOrange.withOpacity(0.3),
+                          color: Color(0xFFBFA2DB).withOpacity(0.3),
                           blurRadius: 12,
                           offset: const Offset(0, 6),
                         ),
@@ -752,7 +740,7 @@ class GameResultsPage extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                             gradient: const LinearGradient(
-                              colors: [Colors.orange, Colors.deepOrange],
+                              colors: [Color(0xFFBFA2DB), Color(0xFFE0BBFF)],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             ),

@@ -196,14 +196,14 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage>
             ),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
-                colors: [Colors.orange, Colors.deepOrange],
+                colors: [Color(0xFFBFA2DB), Color(0xFFE0BBFF)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.deepOrange.withOpacity(0.3),
+                  color: Color(0xFFBFA2DB).withOpacity(0.3),
                   blurRadius: 6,
                   offset: const Offset(0, 2),
                 ),
@@ -233,8 +233,8 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage>
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color.fromARGB(255, 255, 195, 180),
-              Color.fromARGB(255, 249, 192, 122),
+              Color(0xFFE0BBFF),
+              Color(0xFFBFA2DB),
             ],
           ),
         ),
@@ -257,7 +257,7 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage>
                           opacity: _fadeAnimation.value,
                           child: Card(
                             elevation: 12,
-                            shadowColor: Colors.deepOrange.withOpacity(0.2),
+                            shadowColor: Color(0xFFBFA2DB).withOpacity(0.2),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
@@ -265,7 +265,7 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage>
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 gradient: LinearGradient(
-                                  colors: [Colors.white, Colors.grey.shade50],
+                                  colors: [Colors.white, Color(0xFFF3E8FF)],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                 ),
@@ -299,15 +299,15 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage>
                                       decoration: BoxDecoration(
                                         gradient: LinearGradient(
                                           colors: [
-                                            Colors.red.shade50,
-                                            Colors.red.shade100,
+                                            Colors.purple.shade50,
+                                            Colors.purple.shade100,
                                           ],
                                           begin: Alignment.topLeft,
                                           end: Alignment.bottomRight,
                                         ),
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
-                                          color: Colors.red.withOpacity(0.2),
+                                          color: Colors.purple.withOpacity(0.2),
                                           width: 1,
                                         ),
                                       ),
@@ -604,16 +604,7 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage>
                                                                     ),
                                                                 boxShadow: [
                                                                   BoxShadow(
-                                                                    color:
-                                                                        selectedIndexes.contains(
-                                                                              i,
-                                                                            )
-                                                                            ? Colors.grey.withOpacity(
-                                                                              0.3,
-                                                                            )
-                                                                            : Colors.blue.withOpacity(
-                                                                              0.3,
-                                                                            ),
+                                                                    color: Color(0xFFBFA2DB).withOpacity(0.2),
                                                                     blurRadius:
                                                                         6,
                                                                     offset:
@@ -663,8 +654,7 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage>
                                         borderRadius: BorderRadius.circular(12),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.deepOrange
-                                                .withOpacity(0.3),
+                                            color: Color(0xFFBFA2DB).withOpacity(0.3),
                                             blurRadius: 8,
                                             offset: const Offset(0, 4),
                                           ),

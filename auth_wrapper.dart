@@ -11,7 +11,7 @@ class AuthWrapper extends StatefulWidget {
 
 class _AuthWrapperState extends State<AuthWrapper> {
   bool isLoggedIn = false;
-  String? userEmail;
+  String? username;
   Map<String, int> stats = {
     'สลับคำ': 0,
     'เติมคำ': 0,
@@ -19,17 +19,17 @@ class _AuthWrapperState extends State<AuthWrapper> {
     'แข่งกับเวลา': 0,
   };
 
-  void login(String email) {
+  void login(String username) {
     setState(() {
       isLoggedIn = true;
-      userEmail = email;
+      this.username = username;
     });
   }
 
   void logout() {
     setState(() {
       isLoggedIn = false;
-      userEmail = null;
+      username = null;
       stats = {'สลับคำ': 0, 'เติมคำ': 0, 'จับคู่': 0, 'แข่งกับเวลา': 0};
     });
   }
@@ -46,7 +46,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
       return LoginPage(onLogin: login);
     }
     return HomePage(
-      email: userEmail!,
+      username: username!,
       stats: stats,
       onLogout: logout,
       onStatUpdate: updateStat,

@@ -138,14 +138,14 @@ class _ScrambleGamePageState extends State<ScrambleGamePage>
             ),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
-                colors: [Colors.orange, Colors.deepOrange],
+                colors: [Color(0xFFBFA2DB), Color(0xFFE0BBFF)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.deepOrange.withOpacity(0.3),
+                  color: Color(0xFFBFA2DB).withOpacity(0.3),
                   blurRadius: 6,
                   offset: const Offset(0, 2),
                 ),
@@ -175,8 +175,8 @@ class _ScrambleGamePageState extends State<ScrambleGamePage>
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color.fromARGB(255, 255, 195, 180),
-              Color.fromARGB(255, 249, 192, 122),
+              Color(0xFFE0BBFF),
+              Color(0xFFBFA2DB),
             ],
           ),
         ),
@@ -199,7 +199,7 @@ class _ScrambleGamePageState extends State<ScrambleGamePage>
                           opacity: _fadeAnimation.value,
                           child: Card(
                             elevation: 12,
-                            shadowColor: Colors.deepOrange.withOpacity(0.2),
+                            shadowColor: Color(0xFFBFA2DB).withOpacity(0.2),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
@@ -207,7 +207,7 @@ class _ScrambleGamePageState extends State<ScrambleGamePage>
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 gradient: LinearGradient(
-                                  colors: [Colors.white, Colors.grey.shade50],
+                                  colors: [Colors.white, Color(0xFFF3E8FF)],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                 ),
@@ -470,16 +470,7 @@ class _ScrambleGamePageState extends State<ScrambleGamePage>
                                                                     ),
                                                                 boxShadow: [
                                                                   BoxShadow(
-                                                                    color:
-                                                                        selectedIndexes.contains(
-                                                                              i,
-                                                                            )
-                                                                            ? Colors.grey.withOpacity(
-                                                                              0.3,
-                                                                            )
-                                                                            : Colors.blue.withOpacity(
-                                                                              0.3,
-                                                                            ),
+                                                                    color: Color(0xFFBFA2DB).withOpacity(0.2),
                                                                     blurRadius:
                                                                         6,
                                                                     offset:
@@ -578,8 +569,7 @@ class _ScrambleGamePageState extends State<ScrambleGamePage>
                                             ),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Colors.deepOrange
-                                                    .withOpacity(0.3),
+                                                color: Color(0xFFBFA2DB).withOpacity(0.3),
                                                 blurRadius: 8,
                                                 offset: const Offset(0, 4),
                                               ),

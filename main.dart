@@ -14,8 +14,8 @@ class MemoWordsApp extends StatelessWidget {
       title: 'MemoWords',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'Ubuntu Mono sans',
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+        fontFamily: 'UbuntuMono',
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFBFA2DB)),
         useMaterial3: true,
       ),
       home: const AuthWrapper(),
