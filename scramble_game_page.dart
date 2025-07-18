@@ -171,13 +171,9 @@ class _ScrambleGamePageState extends State<ScrambleGamePage>
       ),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFE0BBFF),
-              Color(0xFFBFA2DB),
-            ],
+          image: DecorationImage(
+            image: AssetImage('assets/all_background.jpeg'),
+            fit: BoxFit.cover,
           ),
         ),
         child: SafeArea(
@@ -225,7 +221,9 @@ class _ScrambleGamePageState extends State<ScrambleGamePage>
                                           scale: _pulseAnimation.value,
                                           child: Text(
                                             current.emoji,
-                                            style: const TextStyle(fontSize: 48),
+                                            style: const TextStyle(
+                                              fontSize: 48,
+                                            ),
                                           ),
                                         );
                                       },
@@ -470,7 +468,11 @@ class _ScrambleGamePageState extends State<ScrambleGamePage>
                                                                     ),
                                                                 boxShadow: [
                                                                   BoxShadow(
-                                                                    color: Color(0xFFBFA2DB).withOpacity(0.2),
+                                                                    color: Color(
+                                                                      0xFFBFA2DB,
+                                                                    ).withOpacity(
+                                                                      0.2,
+                                                                    ),
                                                                     blurRadius:
                                                                         6,
                                                                     offset:
@@ -569,7 +571,9 @@ class _ScrambleGamePageState extends State<ScrambleGamePage>
                                             ),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Color(0xFFBFA2DB).withOpacity(0.3),
+                                                color: Color(
+                                                  0xFFBFA2DB,
+                                                ).withOpacity(0.3),
                                                 blurRadius: 8,
                                                 offset: const Offset(0, 4),
                                               ),

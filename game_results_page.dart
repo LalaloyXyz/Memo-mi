@@ -24,13 +24,9 @@ class GameResultsPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFE0BBFF),
-              Color(0xFFBFA2DB),
-            ],
+          image: DecorationImage(
+            image: AssetImage('assets/all_background.jpeg'),
+            fit: BoxFit.cover,
           ),
         ),
         child: SafeArea(
@@ -58,7 +54,12 @@ class GameResultsPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(32),
                       boxShadow: [
                         BoxShadow(
-                          color: Color(0xFFBFA2DB).withOpacity(0.4),
+                          color: Color.fromARGB(
+                            255,
+                            255,
+                            255,
+                            255,
+                          ).withOpacity(0.4),
                           blurRadius: 20,
                           offset: const Offset(0, 10),
                           spreadRadius: 2,
@@ -76,9 +77,9 @@ class GameResultsPage extends StatelessWidget {
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
-                              Color(0xFFBFA2DB),
-                              Color(0xFFE0BBFF),
-                              Color(0xFFD1C4E9),
+                              const Color.fromARGB(255, 247, 229, 89),
+                              const Color.fromARGB(255, 255, 184, 112),
+                              const Color.fromARGB(255, 255, 184, 112),
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
@@ -393,8 +394,13 @@ class GameResultsPage extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(
                                       colors: [
-                                        Color(0xFFBFA2DB),
-                                        Color(0xFFE0BBFF),
+                                        const Color.fromARGB(255, 247, 229, 89),
+                                        const Color.fromARGB(
+                                          255,
+                                          255,
+                                          184,
+                                          112,
+                                        ),
                                       ],
                                       begin: Alignment.topLeft,
                                       end: Alignment.bottomRight,
@@ -402,7 +408,9 @@ class GameResultsPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(20),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Color(0xFFBFA2DB).withOpacity(0.3),
+                                        color: Color(
+                                          0xFFBFA2DB,
+                                        ).withOpacity(0.3),
                                         blurRadius: 8,
                                         offset: const Offset(0, 4),
                                       ),
@@ -740,7 +748,10 @@ class GameResultsPage extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                             gradient: const LinearGradient(
-                              colors: [Color(0xFFBFA2DB), Color(0xFFE0BBFF)],
+                              colors: [
+                                const Color.fromARGB(255, 247, 229, 89),
+                                const Color.fromARGB(255, 255, 184, 112),
+                              ],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             ),

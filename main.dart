@@ -13,11 +13,6 @@ class MemoWordsApp extends StatelessWidget {
     return MaterialApp(
       title: 'MemoWords',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'UbuntuMono',
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFBFA2DB)),
-        useMaterial3: true,
-      ),
       home: const AuthWrapper(),
     );
   }

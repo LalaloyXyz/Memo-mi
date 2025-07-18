@@ -236,10 +236,9 @@ class _MatchGamePageState extends State<MatchGamePage>
       ),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xFFE0BBFF), Color(0xFFBFA2DB)],
+          image: DecorationImage(
+            image: AssetImage('assets/all_background.jpeg'),
+            fit: BoxFit.cover,
           ),
         ),
         child: SafeArea(

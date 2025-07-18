@@ -57,9 +57,9 @@ class _DifficultyPageState extends State<DifficultyPage>
         'name': 'ง่าย',
         'icon': Icons.sentiment_satisfied_alt,
         'emoji': '🥚',
-        'color': Colors.purple.shade200,
-        'colorLight': Colors.purple.shade100,
-        'colorDark': Colors.purple.shade400,
+        'color': const Color.fromARGB(255, 152, 227, 112),
+        'colorLight': const Color.fromARGB(255, 152, 227, 112),
+        'colorDark': const Color.fromARGB(255, 152, 227, 112),
         'description': 'เหมาะสำหรับผู้เริ่มต้น',
         'stars': 1,
       },
@@ -67,9 +67,9 @@ class _DifficultyPageState extends State<DifficultyPage>
         'name': 'ปานกลาง',
         'icon': Icons.sentiment_neutral,
         'emoji': '🐣',
-        'color': Colors.purple.shade200,
-        'colorLight': Colors.purple.shade100,
-        'colorDark': Colors.purple.shade400,
+        'color': const Color.fromARGB(255, 247, 229, 89),
+        'colorLight': const Color.fromARGB(255, 247, 229, 89),
+        'colorDark': const Color.fromARGB(255, 247, 229, 89),
         'description': 'ความท้าทายระดับกลาง',
         'stars': 2,
       },
@@ -77,9 +77,9 @@ class _DifficultyPageState extends State<DifficultyPage>
         'name': 'ยาก',
         'icon': Icons.sentiment_very_dissatisfied,
         'emoji': '🐤',
-        'color': Colors.purple.shade200,
-        'colorLight': Colors.purple.shade100,
-        'colorDark': Colors.purple.shade400,
+        'color': const Color.fromARGB(255, 255, 184, 112),
+        'colorLight': const Color.fromARGB(255, 255, 184, 112),
+        'colorDark': const Color.fromARGB(255, 255, 184, 112),
         'description': 'สำหรับผู้เชี่ยวชาญ',
         'stars': 3,
       },
@@ -99,42 +99,13 @@ class _DifficultyPageState extends State<DifficultyPage>
       ),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xFFE0BBFF), Color(0xFFBFA2DB)],
+          image: DecorationImage(
+            image: AssetImage('assets/all_background.jpeg'),
+            fit: BoxFit.cover,
           ),
-          // Add floating pastel shapes
-          // (for brevity, use Positioned widgets in a Stack below)
         ),
         child: Stack(
           children: [
-            // Floating pastel shapes (hearts, stars, clouds)
-            Positioned(
-              top: 60,
-              left: 30,
-              child: Opacity(
-                opacity: 0.12,
-                child: Icon(Icons.favorite, size: 60, color: Color(0xFFBFA2DB)),
-              ),
-            ),
-            Positioned(
-              bottom: 80,
-              right: 40,
-              child: Opacity(
-                opacity: 0.10,
-                child: Icon(Icons.star, size: 50, color: Color(0xFFE0BBFF)),
-              ),
-            ),
-            Positioned(
-              top: 180,
-              right: 60,
-              child: Opacity(
-                opacity: 0.10,
-                child: Icon(Icons.cloud, size: 70, color: Color(0xFFD1C4E9)),
-              ),
-            ),
-            // Main content
             SafeArea(
               child: FadeTransition(
                 opacity: _fadeAnimation,
@@ -162,8 +133,18 @@ class _DifficultyPageState extends State<DifficultyPage>
                                       decoration: BoxDecoration(
                                         gradient: LinearGradient(
                                           colors: [
-                                            Color(0xFFBFA2DB),
-                                            Color(0xFFE0BBFF),
+                                            const Color.fromARGB(
+                                              255,
+                                              148,
+                                              201,
+                                              227,
+                                            ),
+                                            const Color.fromARGB(
+                                              255,
+                                              148,
+                                              201,
+                                              227,
+                                            ),
                                           ],
                                           begin: Alignment.topLeft,
                                           end: Alignment.bottomRight,
@@ -184,15 +165,21 @@ class _DifficultyPageState extends State<DifficultyPage>
                                           Container(
                                             padding: const EdgeInsets.all(16),
                                             decoration: BoxDecoration(
-                                              color: Colors.white.withOpacity(
-                                                0.2,
-                                              ),
+                                              color: const Color.fromARGB(
+                                                255,
+                                                0,
+                                                0,
+                                                0,
+                                              ).withOpacity(0.2),
                                               borderRadius:
                                                   BorderRadius.circular(50),
                                               border: Border.all(
-                                                color: Colors.white.withOpacity(
-                                                  0.3,
-                                                ),
+                                                color: const Color.fromARGB(
+                                                  255,
+                                                  0,
+                                                  0,
+                                                  0,
+                                                ).withOpacity(0.3),
                                                 width: 2,
                                               ),
                                             ),

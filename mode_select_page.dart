@@ -46,33 +46,37 @@ class _ModeSelectPageState extends State<ModeSelectPage>
       {
         'name': 'สลับคำ',
         'icon': Icons.shuffle_rounded,
-        'color': Colors.purple.shade200,
-        'colorLight': Colors.purple.shade100,
-        'colorDark': Colors.purple.shade400,
+        // Pastel brown
+        'color': const Color.fromARGB(255, 148, 201, 227),
+        'colorLight': const Color.fromARGB(255, 148, 201, 227),
+        'colorDark': const Color.fromARGB(255, 148, 201, 227),
         'description': 'เรียงลำดับตัวอักษรให้ถูกต้อง',
       },
       {
         'name': 'เติมคำ',
         'icon': Icons.edit_note_rounded,
-        'color': Colors.purple.shade200,
-        'colorLight': Colors.purple.shade100,
-        'colorDark': Colors.purple.shade400,
+        // Pastel brown
+        'color': const Color.fromARGB(255, 152, 227, 112),
+        'colorLight': const Color.fromARGB(255, 152, 227, 112),
+        'colorDark': const Color.fromARGB(255, 152, 227, 112),
         'description': 'เติมตัวอักษรที่หายไป',
       },
       {
         'name': 'จับคู่',
         'icon': Icons.link_rounded,
-        'color': Colors.purple.shade200,
-        'colorLight': Colors.purple.shade100,
-        'colorDark': Colors.purple.shade400,
+        // Pastel brown
+        'color': const Color.fromARGB(255, 247, 229, 89),
+        'colorLight': const Color.fromARGB(255, 247, 229, 89),
+        'colorDark': const Color.fromARGB(255, 247, 229, 89),
         'description': 'จับคู่คำกับความหมาย',
       },
       {
         'name': 'แข่งกับเวลา',
         'icon': Icons.timer_rounded,
-        'color': Colors.purple.shade200,
-        'colorLight': Colors.purple.shade100,
-        'colorDark': Colors.purple.shade400,
+        // Pastel brown
+        'color': const Color.fromARGB(255, 255, 184, 112),
+        'colorLight': const Color.fromARGB(255, 255, 184, 112),
+        'colorDark': const Color.fromARGB(255, 255, 184, 112),
         'description': 'ตอบให้เร็วที่สุด',
       },
     ];
@@ -91,13 +95,9 @@ class _ModeSelectPageState extends State<ModeSelectPage>
       ),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFE0BBFF),
-              Color(0xFFBFA2DB),
-            ],
+          image: DecorationImage(
+            image: AssetImage('assets/all_background.jpeg'),
+            fit: BoxFit.cover,
           ),
         ),
         child: SafeArea(
@@ -115,78 +115,7 @@ class _ModeSelectPageState extends State<ModeSelectPage>
                     ),
                     child: Column(
                       children: [
-                        // Header section
-                        TweenAnimationBuilder<double>(
-                          tween: Tween<double>(begin: 0, end: 1),
-                          duration: const Duration(milliseconds: 800),
-                          builder:
-                              (context, value, child) => Transform.scale(
-                                scale: 0.8 + (value * 0.2),
-                                child: Container(
-                                  padding: const EdgeInsets.all(24),
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Color(0xFFBFA2DB),
-                                        Color(0xFFE0BBFF),
-                                      ],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                    ),
-                                    borderRadius: BorderRadius.circular(24),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Color(0xFFBFA2DB).withOpacity(0.4),
-                                        blurRadius: 20,
-                                        offset: const Offset(0, 10),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.all(16),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.2),
-                                          borderRadius: BorderRadius.circular(
-                                            50,
-                                          ),
-                                          border: Border.all(
-                                            color: Colors.white.withOpacity(
-                                              0.3,
-                                            ),
-                                            width: 2,
-                                          ),
-                                        ),
-                                        child: const Icon(
-                                          Icons.games_rounded,
-                                          color: Colors.white,
-                                          size: 48,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 16),
-                                      const Text(
-                                        'เลือกโหมดเกม',
-                                        style: TextStyle(
-                                          fontSize: 28,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          shadows: [
-                                            Shadow(
-                                              color: Colors.black26,
-                                              offset: Offset(0, 2),
-                                              blurRadius: 4,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                        ),
                         const SizedBox(height: 32),
-
                         // Game modes
                         Expanded(
                           child: ListView.builder(
@@ -261,8 +190,12 @@ class _ModeSelectPageState extends State<ModeSelectPage>
                                                     12,
                                                   ),
                                                   decoration: BoxDecoration(
-                                                    color: Colors.white
-                                                        .withOpacity(0.2),
+                                                    color: const Color.fromARGB(
+                                                      255,
+                                                      0,
+                                                      0,
+                                                      0,
+                                                    ).withOpacity(0.2),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                           16,
@@ -292,7 +225,12 @@ class _ModeSelectPageState extends State<ModeSelectPage>
                                                           fontSize: 20,
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          color: Colors.white,
+                                                          color: Color.fromARGB(
+                                                            255,
+                                                            0,
+                                                            0,
+                                                            0,
+                                                          ),
                                                         ),
                                                       ),
                                                       const SizedBox(height: 4),
@@ -300,9 +238,16 @@ class _ModeSelectPageState extends State<ModeSelectPage>
                                                         mode['description']
                                                             as String,
                                                         style: TextStyle(
-                                                          fontSize: 14,
-                                                          color: Colors.white
-                                                              .withOpacity(0.8),
+                                                          fontSize: 16,
+                                                          color:
+                                                              const Color.fromARGB(
+                                                                255,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                              ).withOpacity(
+                                                                0.8,
+                                                              ),
                                                         ),
                                                       ),
                                                     ],
@@ -313,8 +258,12 @@ class _ModeSelectPageState extends State<ModeSelectPage>
                                                     8,
                                                   ),
                                                   decoration: BoxDecoration(
-                                                    color: Colors.white
-                                                        .withOpacity(0.2),
+                                                    color: const Color.fromARGB(
+                                                      255,
+                                                      0,
+                                                      0,
+                                                      0,
+                                                    ).withOpacity(0.2),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                           12,

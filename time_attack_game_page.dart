@@ -229,13 +229,9 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage>
       ),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFE0BBFF),
-              Color(0xFFBFA2DB),
-            ],
+          image: DecorationImage(
+            image: AssetImage('assets/all_background.jpeg'),
+            fit: BoxFit.cover,
           ),
         ),
         child: SafeArea(
@@ -283,7 +279,9 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage>
                                           scale: _pulseAnimation.value,
                                           child: Text(
                                             current.emoji,
-                                            style: const TextStyle(fontSize: 48),
+                                            style: const TextStyle(
+                                              fontSize: 48,
+                                            ),
                                           ),
                                         );
                                       },
@@ -604,7 +602,11 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage>
                                                                     ),
                                                                 boxShadow: [
                                                                   BoxShadow(
-                                                                    color: Color(0xFFBFA2DB).withOpacity(0.2),
+                                                                    color: Color(
+                                                                      0xFFBFA2DB,
+                                                                    ).withOpacity(
+                                                                      0.2,
+                                                                    ),
                                                                     blurRadius:
                                                                         6,
                                                                     offset:
@@ -654,7 +656,9 @@ class _TimeAttackGamePageState extends State<TimeAttackGamePage>
                                         borderRadius: BorderRadius.circular(12),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Color(0xFFBFA2DB).withOpacity(0.3),
+                                            color: Color(
+                                              0xFFBFA2DB,
+                                            ).withOpacity(0.3),
                                             blurRadius: 8,
                                             offset: const Offset(0, 4),
                                           ),
